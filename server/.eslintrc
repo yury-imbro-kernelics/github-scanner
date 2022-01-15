@@ -1,0 +1,12 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
+    "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+    "rules": {
+        "prettier/prettier": "error",
+        "node/no-process-env": "error",
+        "node/no-missing-import": 0,
+        "no-empty-pattern": 0,
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    }
+}
