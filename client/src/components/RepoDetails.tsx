@@ -11,11 +11,13 @@ import {
 import { Box } from '@mui/system';
 import { useParams } from 'react-router-dom';
 import { gql, useQuery } from 'urql';
-import { GitHubRepoTreeNode, GitHubRepoTreeNodeType, RepoDetailsQuery } from '../generated/graphql';
+import { GitHubRepoTreeNodeType, RepoDetailsQuery } from '../generated/graphql';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FolderIcon from '@mui/icons-material/Folder';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { bytesToHumanReadable } from '../formatters/bytesToHumanReadable';
+
+type GitHubRepoTreeNodeForDetailsPage = RepoDetailsQuery['repoDetails']['fileInfo']['treeNodes'][0];
 
 export const REPO_DETAILS_QUERY = gql`
     query RepoDetails($name: String!) {
@@ -35,11 +37,8 @@ export const REPO_DETAILS_QUERY = gql`
                 yamlContent
                 treeNodes {
                     path
-                    mode
                     type
-                    sha
                     size
-                    url
                 }
             }
         }
@@ -136,7 +135,7 @@ export function RepoDetails() {
         return 1;
     });
 
-    const getSingleLevelNodesByRoot = (root?: GitHubRepoTreeNode) => {
+    const getSingleLevelNodesByRoot = (root?: GitHubRepoTreeNodeForDetailsPage) => {
         if (!root) {
             return sortedTreeNodes.filter((node) => node.path.match(/\//g) === null);
         }
@@ -147,7 +146,7 @@ export function RepoDetails() {
         );
     };
 
-    const renderTreeNode = (node: GitHubRepoTreeNode) => (
+    const renderTreeNode = (node: GitHubRepoTreeNodeForDetailsPage) => (
         <Accordion
             key={node.path}
             onChange={handleTreeClick(node.path)}
@@ -166,7 +165,7 @@ export function RepoDetails() {
         </Accordion>
     );
 
-    const renderBlobNode = (node: GitHubRepoTreeNode) => (
+    const renderBlobNode = (node: GitHubRepoTreeNodeForDetailsPage) => (
         <Paper sx={{ padding: 2 }} elevation={0} key={node.path}>
             <Grid container alignItems="center" justifyContent="space-between">
                 <Grid item container alignItems="center" xs="auto">
@@ -178,7 +177,7 @@ export function RepoDetails() {
         </Paper>
     );
 
-    const renderNode = (node: GitHubRepoTreeNode) =>
+    const renderNode = (node: GitHubRepoTreeNodeForDetailsPage) =>
         node.type === GitHubRepoTreeNodeType.Tree ? renderTreeNode(node) : renderBlobNode(node);
 
     const renderNodesAccordion = () => (

@@ -84,7 +84,7 @@ export type RepoDetailsQueryVariables = Exact<{
 }>;
 
 
-export type RepoDetailsQuery = { __typename?: 'Query', repoDetails: { __typename?: 'GitHubRepoDetails', name: string, size: number, private: boolean, owner: { __typename?: 'GitHubUser', id: number, login: string }, activeWebhooks: Array<{ __typename?: 'GitHubWebHook', name: string }>, fileInfo: { __typename?: 'GitHubRepoFileInfo', count: number, yamlContent?: string | null | undefined, treeNodes: Array<{ __typename?: 'GitHubRepoTreeNode', path: string, mode?: string | null | undefined, type: GitHubRepoTreeNodeType, sha?: string | null | undefined, size?: number | null | undefined, url?: string | null | undefined }> } } };
+export type RepoDetailsQuery = { __typename?: 'Query', repoDetails: { __typename?: 'GitHubRepoDetails', name: string, size: number, private: boolean, owner: { __typename?: 'GitHubUser', id: number, login: string }, activeWebhooks: Array<{ __typename?: 'GitHubWebHook', name: string }>, fileInfo: { __typename?: 'GitHubRepoFileInfo', count: number, yamlContent?: string | null | undefined, treeNodes: Array<{ __typename?: 'GitHubRepoTreeNode', path: string, type: GitHubRepoTreeNodeType, size?: number | null | undefined }> } } };
 
 export type ReposQueryVariables = Exact<{ [key: string]: never; }>;
 
