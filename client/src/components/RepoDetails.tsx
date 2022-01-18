@@ -167,8 +167,8 @@ export function RepoDetails() {
     );
 
     const renderBlobNode = (node: GitHubRepoTreeNode) => (
-        <Paper sx={{ padding: 2 }} elevation={0}>
-            <Grid container alignItems="center" justifyContent="space-between" key={node.path}>
+        <Paper sx={{ padding: 2 }} elevation={0} key={node.path}>
+            <Grid container alignItems="center" justifyContent="space-between">
                 <Grid item container alignItems="center" xs="auto">
                     <InsertDriveFileIcon />
                     {node.path.split('/').at(-1)}
